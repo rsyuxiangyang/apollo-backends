@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-
+#-*-coding:utf-8-*- 
 import dbus
 import json
 class MockClient:
     def mockRun(self):
         strRun={"action":"run",
                 "scenename":"onekeycheck",
-                "functionname":"systeminfocheck",         
+                "functionname":"patchNotInstalled",
                 "parameters":{"parameter1":"S",
                               "parameter2":"S",
                               "parameter3":"S"}}
@@ -37,6 +37,7 @@ if __name__ == '__main__':
     obj = bus.get_object('com.bmjc.backend','/bmjc/backend')
     iface =dbus.Interface(obj,'bmjc.backend') 
     mockClient=MockClient()
-    serverResult = iface.reveiveFromUI(mockClient.mockRun());
-    print "client1 received msgs:"+str(serverResult)
+    print "模拟UI向backends发送报文："+str(mockClient.mockRun())
+    iface.reveiveFromUI(mockClient.mockRun());
+    print "发送结束"
 
